@@ -1,0 +1,5 @@
+Athlete: AJ
+1. Session distance: 12 km,
+2. Session distance: 17 km,
+3. Session distance: 5 km,
+Total distance: 34km.

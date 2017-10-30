@@ -37,11 +37,11 @@ public abstract class Athlete {
         this.sessions = new ArrayList<>();
     }
 
-    public String prepare(){
+    public String prepare() {
         return "Training...";
     }
 
-    public String compete(){
+    public String compete() {
         return "Competing...";
     }
 
@@ -49,82 +49,83 @@ public abstract class Athlete {
         this.points = points;
     }
 
-    public int calculatePoints(){
+    public int calculatePoints() {
         return points;
     }
 
-    public Medal awardMedal(){
-        if (this.points >= 5 && this.points < 10){
+    public Medal awardMedal() {
+        if (this.points >= 5 && this.points < 10) {
             this.medal = BRONZE;
             return BRONZE;
-        }
-        else if (this.points >= 10 && this.points < 15){
+        } else if (this.points >= 10 && this.points < 15) {
             this.medal = SILVER;
             return SILVER;
-        }
-        else if (this.points >= 15){
+        } else if (this.points >= 15) {
             this.medal = GOLD;
             return GOLD;
-        }
-        else {
+        } else {
             return null;
         }
 
     }
 
     //    allow enter an event
-    public String participate(){
+    public String participate() {
         prepare();
         compete();
         calculatePoints();
         awardMedal();
-        if (this.medal != null){
+        if (this.medal != null) {
             return this.name + " won " + medal.getMedalName();
-        }
-        else {
+        } else {
             return this.name + " failed to win a medal.";
         }
     }
 
-    public void addSession(int session){
+    public void addSession(int session) {
         this.sessions.add(session);
     }
 
-    public int sessionCount(){
+    public int sessionCount() {
         return this.sessions.size();
     }
 
-    public int totalDistance(){
+    public int totalDistance() {
         int total = 0;
-        for (int session : sessions){
+        for (int session : sessions) {
             total += session;
         }
         return total;
     }
 
-    public int getDistance(int index){
+    public int getDistance(int index) {
         return this.sessions.get(index);
     }
 
+
+    public ArrayList<Integer> getSessions() {
+        return sessions;
+    }
+
+
     public void writeToLog() throws IOException {
-//        PrintWriter writer = new PrintWriter(new FileWriter("/Users/Peter/codeclan_work/week_07/day_1/TheOlympics/app/src/main/java/com/example/peter/theolympics/AthleteLog.txt", true));
-//        for (int session : this.sessions) {
-//            String sessionStr = Integer.toString(session);
-//            writer.println(sessionStr);
-//        }
-//
-//        int session = sessions.get(0);
-//        String sessionStr = "7";
-//        writer.write(sessionStr);
-//        writer.close();
-//    }
 
         PrintWriter pW = null;
 
         try {
-            pW = new PrintWriter(new File("/Users/Peter/codeclan_work/week_07/day_1/TheOlympics/app/src/main/java/com/example/peter/theolympics/AthleteLog.txt"));
-            pW.write("Hello");
+            pW = new PrintWriter(new File("/Users/louisereid/codeclan_work/week_7/day_1/olympic_games/app/src/main/java/com/example/peter/theolympics/AthleteLog.txt"));
+            String name = this.name;
+            pW.write("Athlete: " + name);
             pW.println();
+            int lineNo = 1;
+            for (int session : this.sessions) {
+                String sessionStr = Integer.toString(session);
+                pW.write(lineNo++ + ". Session distance: " + sessionStr + " km,");
+                pW.println();
+            }
+
+            String totalDistance = Integer.toString(totalDistance());
+            pW.write("Total distance: " + totalDistance + "km.");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -133,10 +134,5 @@ public abstract class Athlete {
             }
         }
     }
-
-
-    public ArrayList<Integer> getSessions() {
-        return sessions;
-    }
 }
-// this
+

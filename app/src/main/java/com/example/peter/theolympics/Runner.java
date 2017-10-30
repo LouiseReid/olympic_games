@@ -17,7 +17,9 @@ public class Runner {
         boxer.addSession(17);
         boxer.addSession(5);
 
+
         boxer.writeToLog();
+
     }
 }
 // this
